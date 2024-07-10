@@ -10,16 +10,19 @@ const Person = () => {
    * You can get today's year with:
    * @example new Date(Date.now()).getFullYear()
    */
-
+const calculateAge=()=>{
+  const currentYear=new Date(Date.now()).getFullYear();
+return currentYear-person.birthYear;
+};
   return (
     <div>
       <h1>Featured Person</h1>
       {/* Using JSX, plugin name below from the person object */}
-      <div>Name: _____</div>
+      <div>Name:{person.name}____</div>
       {/* Using JSX, plugin occupation below from the person object */}
-      <div>Occupation: _____</div>
+      <div>Occupation: _{person.occupation}____</div>
       {/* Using JSX, plugin the birth year using a function that converts age to birth year */}
-      <div>Age: _____</div>
+      <div>Age: {calculateAge()}_____</div>
     </div>
   );
 };

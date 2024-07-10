@@ -1,8 +1,15 @@
 import "./App.css";
-// import something here
+import Welcome from "./Welcome/Welcome";
+import Heading from "./Heading";
 
 function App() {
-  return <div className="App">{/* Complete me */}</div>;
+  return (<div className="App">
+<Welcome name="marta"/>
+<Welcome name="marta"/>
+<Welcome/>
+<Heading>Cokolwiek tu jest to sa props.children</Heading>
+  </div>
+  )
 }
 
 export default App;

@@ -1,28 +1,73 @@
 // Import something here
+import {useState}from "react";
 import "./App.css";
 
+
 const GroceryList = () => {
+  const[groceryName,setGroceryName]=useState("");
+  const[cost,setCost]=useState(""); 
+  const [list,setList]=useState([  {groceryName:"bananas",cost:1.99},
+  {groceryName:"apples",cost:10.5}   
+  ]);
+  const[hasError,setHasError]=useState(false);
+  
+ 
+  const addItem=()=>{const newItem={groceryName:groceryName,cost:cost};
+  setList([...list,newItem])};
+
+  const handleSubmit=(e)=>{e.preventDefault();
+    if(cost && groceryName)
+      { addItem();
+      setHasError(false);}
+    else
+      {setHasError(true);
+      setGroceryName("");
+      setCost("");
+      setHasError(false);
+    }
+  }
+  const deleteItem=indexToDelete=>{setList(list.filter((item,index) =>index!==indexToDelete))};
   return (
     <div className="container">
       <div className="card card-body bg-light mb-2">
-        <form method="POST" className="row g-3">
+        <form method="POST" className="row g-3" onSubmit={handleSubmit}>
           <div className="col">
             <input
-              className="form-control"
+              className={
+                  hasError && !groceryName?"is-invalid form-control":"form-control"
+              }
               type="text"
               placeholder="Name of grocery item..."
               aria-label="Name of grocery item..."
+              value={groceryName}
+              onChange={(e)=>setGroceryName(e.target.value)}
             />
+            {hasError &&
+            !groceryName &&(
+            <div className="invalid-feedback">
+              <small>Enter the name</small>
+            </div>
+            )}
           </div>
           <div className="col">
             <input
-              className="form-control"
+              className={
+              hasError && !cost ?"is-invalid form-control":"form-control"  
+              }
               type="number"
               min="0"
               step=".01"
               placeholder="Cost of grocery item..."
               aria-label="Cost of grocery item..."
+              value={cost}
+              onChange={(e)=>setCost(e.target.value)}
             />
+            {hasError &&
+            !cost &&(
+            <div className="invalid-feedback"style="background-color:red;">
+              Enter the cost
+            </div>
+            )}
           </div>
           <div className="col-md-auto">
             <button type="submit" className="btn btn-success">
@@ -42,31 +87,32 @@ const GroceryList = () => {
             </tr>
           </thead>
           <tbody>
-            {/**
-             * Complete me. (You can use something else instead of a table if you like)
-             * @example
-             * <tr>
-             *   <td>Toilet Paper</td>
-             *   <td>$1.99</td>
-             *   <td>
-             *     <button aria-label="Delete" title="Delete" ... >
-             *       &times;
-             *     </button>
-             *   </td>
-             * </tr>
-             */}
-          </tbody>
-        </table>
+            {list.map((item,index)=>{
+             
+            return( <tr key={`item-$(index)`}>
+                <td>{item.groceryName}</td>
+                <td>{item.cost}</td>
+                <td>
+                  <button aria-label="Delete" title="Delete"onClick={(e)=>deleteItem(index)} >delete
+                    &times;
+                  </button>
+                </td>
+              </tr>
+            )
+             })}
+        </tbody>
+      </table>
         <p className="lead">
-          <strong>Total Cost: {/* Complete me */}</strong>
+          <strong>Total Cost:  {list.reduce((accumulator,item)=>accumulator+parseFloat(item.cost),0).toFixed(2)}</strong>
         </p>
         <div className="d-flex justify-content-end">
-          <button type="button" className="btn btn-outline-success">
+          <button type="button" className="btn btn-outline-success" onClick={(e)=>setList([])}>
+          
             Clear
           </button>
         </div>
       </div>
-    </div>
+    </div>  
   );
 };
 

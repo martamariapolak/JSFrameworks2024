@@ -21,7 +21,7 @@ This is because your first assignment will be to fix the errors within _src/comp
 
 To stop the application, press `ctrl+c`.
 
-To run the tests:
+To run the tests:n
 
 ```shell
 npm run test
