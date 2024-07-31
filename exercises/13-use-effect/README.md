@@ -43,6 +43,6 @@ Note that if the user selects, e.g. 5 from the dropdown, you should be making on
 
 Before doing this exercise, read the documentation for the [Random Dog Image API here](https://dog.ceo/dog-api/documentation/random#all).
 
-If you would like to use the Axios library, install it with `npm install axios`. (Vite.js doesn't come with the Axios library, so you will need to install it separately.) Alternatively, you can use the browser native Fetch API.
+If you would like to use the Axios library, install it with ``npm install axios. (Vite.js doesn't come with the Axios library, so you will need to install it separately.) Alternatively, you can use the browser native Fetch API.
 
 Complete the instructions in [App.jsx](src/App.jsx).

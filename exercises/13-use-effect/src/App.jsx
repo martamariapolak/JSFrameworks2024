@@ -1,7 +1,7 @@
 // Import useEffect here
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-// import Axios (or use Fetch)
+import axios from "axios";
 
 function App() {
   /**
@@ -16,18 +16,32 @@ function App() {
   const [dogImages, setDogImages] = useState([]);
 
   /**
-   * You may need to set something else in state
+   * This should be set when the user selects a value from the dropdown.
    */
+  const [numberOfImages, setNumberOfImages] = useState("1");
 
   /**
    * Make an AJAX call with the useEffect hook
    */
+  const fetchImages = async () => {
+    const { data } = await axios.get(
+      `https://dog.ceo/api/breeds/image/random/${numberOfImages}`
+    );
+    setDogImages(data.message);
+  };
+
+  useEffect(() => {
+    fetchImages();
+  }, [numberOfImages]); // This means an AJAX request is made whenever amountOfImages changes
 
   return (
     <div className="App">
       <h1>Dogs</h1>
       {/* Make me a controlled input */}
-      <select>
+      <select
+        value={numberOfImages}
+        onChange={(e) => setNumberOfImages(e.target.value)}
+      >
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>

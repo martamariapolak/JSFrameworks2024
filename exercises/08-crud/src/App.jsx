@@ -26,7 +26,7 @@ const GroceryList = () => {
       setHasError(false);
     }
   }
-  const deleteItem=indexToDelete=>{setList(list.filter((item,index) =>index!==indexToDelete))};
+  const deleteItem=indexToDelete=>{setList(list.filter((item,index) =>index!==indexToDelete ))};
   return (
     <div className="container">
       <div className="card card-body bg-light mb-2">
@@ -36,6 +36,7 @@ const GroceryList = () => {
               className={
                   hasError && !groceryName?"is-invalid form-control":"form-control"
               }
+              
               type="text"
               placeholder="Name of grocery item..."
               aria-label="Name of grocery item..."
@@ -92,7 +93,7 @@ const GroceryList = () => {
             return( <tr key={`item-$(index)`}>
                 <td>{item.groceryName}</td>
                 <td>{item.cost}</td>
-                <td>
+                <td >
                   <button aria-label="Delete" title="Delete"onClick={(e)=>deleteItem(index)} >delete
                     &times;
                   </button>
