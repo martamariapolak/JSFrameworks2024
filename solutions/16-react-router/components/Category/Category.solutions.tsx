@@ -1,27 +1,24 @@
-/**
- * This same component will be used for every category (food, clothing and office).
- * Right now, it is hardcoded to display office supplies.
- * Change this so that it will display products for the correct category.
- */
-
-// import something here
-import {link}from "react-router-dom";
-/**
- * This imports a list of products.
- */
-import { inventory } from "../../assets/inventory";
+import { useParams } from "react-router-dom";
+import inventory from "../../assets/inventory";
 
 function Category() {
   /**
-   * Category is hardcoded here.
-   * This is the only part you will need to change in this file.
+   * @see solutions/10-react-router/src/components/App/App.solutions.jsx
+   * and look at this line of code:
+   * `<Route exact path="/category/:category" component={Category} />`
    */
-  const category = "office"; // change me
+  const { category } = useParams();
   /**
-   * You will need to some kind of check to make sure the product exists.
-   * If it doesn't, display an error message.
+   * Needed for TypeScript. Checks to see the category exists.
+   * If it does not, it returns an error.
    */
-
+  if (!category || !inventory.hasOwnProperty(category)) {
+    return (
+      <div>
+        <h2 className="lead mb-4">CATEGORY NOT FOUND</h2>
+      </div>
+    );
+  }
   /**
    * All the products in a category. To see how this works, take a look at
    * @see exercises/10-react-router/src/assets/inventory.js
@@ -40,7 +37,7 @@ function Category() {
           products.map((product, index) => {
             return (
               <div className="col mb-4" key={`product-${index}`}>
-                <img src={`/${product.image}`} alt="" className="mb-3" />
+                <img src={product.image} alt="" className="mb-3" />
                 <div>{product.description}</div>
                 <strong>$ {product.price.toFixed(2)}</strong>
               </div>
