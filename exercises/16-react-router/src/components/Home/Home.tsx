@@ -5,6 +5,7 @@
 
 // import something here
 import { inventory } from "../../assets/inventory";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -15,15 +16,15 @@ function Home() {
           <div className="col" key={`category-${category}`}>
             <h2 className="h3 mb-3">
               {/* Change me */}
-              <a href={link}>
+              <link to ={link}>
                 {category[0].toUpperCase() + category.substring(1)}
-              </a>
+              </link>
             </h2>
             <div className="card text-center">
               {/* Change me */}
-              <a href={link}>
+              <link to={link}>
                 <img src={products[0].image} alt="" height={200} />
-              </a>
+              </link>
             </div>
           </div>
         );
