@@ -1,4 +1,6 @@
-/**
+import { Routes, Route } from "react-router-dom";
+
+ /** 
  * You will be setting up your routes in this file.
  *
  * You can use ./src/components/App/App.jsx as an example here:
@@ -12,7 +14,7 @@
  */
 import Home from "../Home/Home";
 import Category from "../Category/Category";
-import { Routes, Route } from "react-router-dom";
+
 
 function App() {
   /**
@@ -32,7 +34,7 @@ function App() {
       <main className="container mb-4">{
         <Routes>
           <Route path="/"element={<Home/>}/>
-          <Route path="/Category/food" element={<Category/>}/>
+          <Route path="/Category/:categoryId" element={<Category/>}/>
         </Routes>
       }</main>
     </>
