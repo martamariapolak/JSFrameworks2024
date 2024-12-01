@@ -1,19 +1,39 @@
-import { useState, ChangeEvent } from "react";
-// import something here
-// import Axios (or use Fetch)
-
+import { useState,FormEvent, ChangeEvent,  } from "react";
+import Home from "../Home/Home";
+import axios from "axios";
+import { ILoginResponse } from "../../types/login";
 function App() {
-  /**
-   * User input
-   */
+ 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  /**
-   * Handling AJAX loading and errors
-   */
+ 
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const[token,setToken]=useState("");
+  const handleSubmit=async(e:FormEvent)=>{
+    e.preventDefault();
+    setErrorMessage("");
+    try {
+      const { data } = await axios.post<ILoginResponse>(
+       
+      
+        {
+          username,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setToken(data.token);
+    }catch(error){
+      if(axios.isAxiosError(error)&&error.response?.status==401){
+      setErrorMessage("no correct");
+      }
+    }
+  };
   /**
    * Complete all the logging in and logout logic
    */
@@ -25,9 +45,10 @@ function App() {
     <div className="container mt-2 mb-5">
       <h1>Login</h1>
       {/* Handle form submission */}
-      <form
+            <form
         className="row row-cols-lg-auto g-3 align-items-center"
         method="POST"
+        onSubmit={handleSubmit}
       >
         <div className="col">
           <label htmlFor="username" className="visually-hidden">

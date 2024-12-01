@@ -1,7 +1,7 @@
 // You might need to import something from React
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import axios from "axios";
 import { IMovie } from "../../types/movies";
-// import Axios (or use Fetch)
 
 type HomeProps = {
   token: string;
@@ -11,18 +11,33 @@ type HomeProps = {
 function Home({ token, logout }: HomeProps) {
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
+//----------------------
+const getMovies = async () => {
+  setErrorMessage("");
+  try {
+    const { data } = await axios.get<IMovie>("http://localhost:3000/api/login", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setMovies(data.data);
+  } catch (error) {
+    console.error(error);
+    setErrorMessage("Oh no! An unexpected error occurred.");
+  }
+};
 
-  /**
-   * Make an AJAX request to http://localhost:7001/api/movies to get a list of movies.
-   * Be sure to provide the token in the AJAX request.
-   */
+useEffect(() => {
+  getMovies();
+}, []);
+  
 
   return (
     <div className="container mt-2 mb-5">
       <div className="d-flex justify-content-between">
         <h1 className="h2">You are logged in!</h1>
         {/* Make this button functional */}
-        <button className="btn btn-primary">Logout</button>
+        <button className="btn btn-primary" onClick={() => logout()}>Logout</button>
       </div>
       {movies.map((movie, idx) => {
         return (

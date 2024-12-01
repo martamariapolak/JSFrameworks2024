@@ -1,10 +1,10 @@
 # Deploying to Render.com
 
-Render.com is a website for hosting full stack applications. Render.com has a free tier, (but the catch is that your app have a cold start of one minute). This is a guide for how to deploy your final project to Render.com.
+Render.com is a website for hosting full stack applications. Render.com has a free tier, (but the catch is that your app have a cold start of one minute). This is a guide for how to deploy your final project to Render.com. _render.yaml_ file
 
 ## Before deploying
 
-Before getting starting, open up the _render.yaml_ file. This file configures your app's URL, build command, start command, and environment variables.
+Before getting starting, open up the. This file configures your app's URL, build command, start command, and environment variables.
 
 ```yaml
 services:

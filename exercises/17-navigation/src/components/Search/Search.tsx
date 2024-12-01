@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { Link } from "react-router-dom"; // Do you need to import anything else here?
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Import something(s)
 import NavBar from "../NavBar/NavBar";
 import SearchImage from "./SearchImage";
 import { products } from "../../assets/products";
@@ -21,17 +21,24 @@ const search = (newQuery: string) => {
 
 function Search() {
   /**
-   * Add something here
+   * Initializes navigate and location
    */
+  const navigate = useNavigate();
+  const location = useLocation();
 
   /**
-   * When the user hits the back and forward button, or refreshes the page,
-   * you will need to get what the user search for from history.
-   * Set the starting value of the text in the search textbox.
+   * Here is where I am making the page "back button" and "refresh" proof.
+   * If the user navigates back and forth, or refreshes the screen, this will
+   * populates the search textbox with what the user searched with.
+   *
+   * Every time the form is submitted, the search query is pushed to history.
+   * (See code below).
+   * The location.state?.query retrieves the search query from history.
+   * and falls back to an empty string if it isn't there.
    */
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(location.state?.query || "");
   /**
-   * This populates the search results.
+   * And this populates the search results.
    */
   const [results, setResults] = useState(search(query));
 
@@ -40,8 +47,14 @@ function Search() {
     setResults(search(query));
 
     /**
-     * With "useNavigate", put what the user searched for in history.
+     * This is pushing what the user searched with to history.
      */
+    navigate("", {
+      replace: true,
+      state: {
+        query,
+      },
+    });
   };
 
   return (
@@ -95,5 +108,4 @@ function Search() {
     </>
   );
 }
-
 export default Search;

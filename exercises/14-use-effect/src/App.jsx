@@ -15,7 +15,8 @@ function App() {
   const [allCharacters, setAllCharacters] = useState([]);
   /**
    * AJAX request to look up all characters,
-   * and then it sets the characters in state
+   * and then it sets the characters in statepwd
+   * 
    * so that they can render on the screen.
    */
   const fetchCharacters = async () => {
